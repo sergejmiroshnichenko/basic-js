@@ -5,7 +5,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  * array contains
  * 
  * @param {Array} arr initial array
- * @returns {Array} transformed array
+ * @returns {string} transformed array
  * 
  * @example
  * 
@@ -15,29 +15,32 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function transform(arr ) {
 
-  if(arr.indexOf('--double-next')){
-    arr.push(arr.indexOf('--double-next') + 1);
-    return arr.filter(item => typeof item === 'number').sort();
+
+
+  if(!Array.isArray(arr)){
+    throw new Error("'arr' parameter must be an instance of the Array!");
+  } else {
+    for (let i = 0; i < arr.length; i++) {
+
+      if (arr[i] === '--double-next') {
+        arr[i] = arr[i + 1]
+      }
+
+      if (arr[i] === '--double-prev') {
+        arr[i] = arr[i - 1]
+      }
+
+      if (arr[i] === '--discard-prev') {
+        arr[i - 1] = '';
+      }
+
+      if (arr[i] === '--discard-next') {
+        arr[i + 1] = '';
+      }
+    }
+    console.log(arr.filter(item => +item))
+    return arr.filter(item => +item)
   }
-
-
-  if(arr.indexOf('--double-prev')){
-    arr.push(Math.abs(arr.indexOf('--double-next') - 1));
-    return arr.filter(item => typeof item === 'number').sort();
-  }
-
-  if(arr.indexOf('--discard-prev')){
-    let p = arr.indexOf('--discard-prev') - 1;
-    arr.splice(p,1)
-    return arr.filter(item => typeof item === 'number');
-  }
-
-  if(arr.indexOf('--discard-next')){
-    let p = arr.indexOf('--discard-prev') + 1;
-    arr.splice(p,1)
-    return arr.filter(item => typeof item === 'number');
-  }
-
 }
 
 module.exports = {
