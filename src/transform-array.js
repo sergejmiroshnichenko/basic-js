@@ -26,7 +26,8 @@ function transform( arr ) {
         } else if (arr[i] === '--double-prev') {
             arr[i -2] !== '--discard-next' ? result.push(result[result.length - 1]) : '';
         }
-        result[result.length - 1] === '--discard-next' || result[result.length - 1] === '--discard-prev' || result[result.length - 1] === '--double-next' || result[result.length - 1] === '--double-prev' ? result.pop() : '';
+        result[result.length - 1] === '--discard-next' || result[result.length - 1] === '--discard-prev' ||
+        result[result.length - 1] === '--double-next' || result[result.length - 1] === '--double-prev' ? result.pop() : '';
     }
     result[0] === undefined ? result.shift() : '';
     return result;
